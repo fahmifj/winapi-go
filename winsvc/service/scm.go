@@ -22,13 +22,13 @@ type ISCM interface {
 // }
 
 // Create is create 🔨
-func Create(conf *ServiceConfig) error {
+func CreateStart(conf *ServiceConfig) error {
 
 	// Note: this should be separated
 	// Connect to SCM database and get a handle with desired access
 	scmHandle, err := windows.OpenSCManager(nil, nil, windows.SC_MANAGER_ALL_ACCESS)
 	if err != nil {
-		fmt.Printf("[Error] Failed to connect to the SCM database: %v", err)
+		fmt.Println("[Error] Failed to connect to the SCM database: ", err)
 		return err
 	}
 
@@ -53,6 +53,11 @@ func Create(conf *ServiceConfig) error {
 	)
 	if err != nil {
 		fmt.Printf("[Error] Failed to create service: %v", err)
+		return err
+	}
+
+	err = windows.StartService(svcHandle, 0, nil)
+	if err != nil {
 		return err
 	}
 

@@ -12,7 +12,6 @@ type ServiceConfig struct {
 // Still idk if this one is really needed
 // Since the config is generated from cli
 // But I will just keep it first
-func NewServiceConfig() *ServiceConfig {
-	svcConf := ServiceConfig{}
-	return &svcConf
+func NewServiceConfig() ServiceConfig {
+	return ServiceConfig{}
 }
